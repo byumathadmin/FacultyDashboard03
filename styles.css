@@ -9,10 +9,10 @@
   --tile-bg: #ffffff;
   --tile-ink: #17232d;
   --tile-muted: #71808d;
-  --vertical-tile-width: 291.55px;
+  --vertical-tile-width: 292px;
   --vertical-tile-height: 480px;
-  --horizontal-tile-width: 410.633px;
-  --horizontal-tile-height: 276.45px;
+  --horizontal-tile-width: 415px;
+  --horizontal-tile-height: 2775px;
   --shadow: 0 16px 38px rgba(29, 45, 58, 0.09);
 }
 
@@ -155,7 +155,7 @@ input[type="range"] { width: 100%; min-height: 34px; margin: 17px 0 3px; accent-
 .header-note { display: flex; align-items: center; gap: 8px; padding-bottom: 3px; color: var(--muted); font-size: 11px; white-space: nowrap; }
 .click-icon { display: grid; width: 24px; height: 24px; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--accent-dark); font-size: 15px; }
 
-.faculty-grid { display: grid; grid-template-columns: repeat(14, var(--vertical-tile-width)); align-items: start; gap: clamp(14px, 1.15vw, 24px); width: max-content; touch-action: pan-y; }
+.faculty-grid { display: grid; grid-template-columns: repeat(11, var(--vertical-tile-width)); align-items: start; gap: clamp(14px, 1.15vw, 24px); width: max-content; touch-action: pan-y; }
 .faculty-card { width: var(--vertical-tile-width); height: var(--vertical-tile-height); min-width: 0; border: 1px solid rgba(26, 44, 56, .06); border-radius: 22px; color: var(--tile-ink); background: var(--tile-bg); box-shadow: var(--shadow); cursor: pointer; overflow: hidden; touch-action: pan-y; transition: transform .2s ease, box-shadow .2s ease, background .25s ease, color .25s ease; }
 .faculty-card:active { transform: scale(.99); }
 .faculty-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
