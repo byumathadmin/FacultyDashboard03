@@ -1,6 +1,26 @@
 # Faculty Dashboard
 
-The dashboard loads `faculty.json` each time it starts. Run it through a web server; this is also how it should be hosted on GitHub Pages:
+The dashboard can be opened directly as a local file. It uses `faculty-data.js` for the Faculty page when `file://` blocks JSON fetches, and falls back to `faculty.json` when served over HTTP.
+
+The dashboard has four page buttons:
+
+- `Faculty` shows the clickable faculty tiles.
+- `Graduate Students` shows names from `graduate-students-data.js`. Add strings or `{ name, program }` objects to that file.
+- `Signage` has a scrollable, two-column image picker with larger tiles and a 2300-pixel-wide 16:9 preview panel. Select an image to open it in the preview. Each `signage.json` item has a display title and an image URL.
+- `Building Map` shows Floor 1, Floor 2, and Floor 3 selectors. Add the corresponding images at `assets/building-map-floor-1.png`, `assets/building-map-floor-2.png`, and `assets/building-map-floor-3.png`.
+- `BYUTv Live` embeds the BYUtv live stream at 1920 × 1080 pixels. The page scrolls if the display is smaller than the iframe.
+
+Signage entries use this format:
+
+```json
+[
+  { "title": "Math Lab Tutoring Presentation", "url": "https://example.edu/signage-slide.png" }
+]
+```
+
+The Signage page fetches `signage.json`, so it is available on GitHub Pages or when the folder is served locally. Direct `file://` use cannot fetch the JSON file in browsers that block local-file requests.
+
+It can also be run through a web server; this is how it should be hosted on GitHub Pages:
 
 ```bash
 cd /Users/dallindunn/Documents/InfoDisplay/faculty-dashboard
@@ -9,7 +29,7 @@ python3 -m http.server
 
 Then visit `http://localhost:8000`.
 
-The updater keeps this dashboard copy synchronized with the main `faculty.json` file:
+The updater keeps the dashboard JSON and local-file data script synchronized with the main `faculty.json` file:
 
 ```bash
 cd /Users/dallindunn/Documents/InfoDisplay
