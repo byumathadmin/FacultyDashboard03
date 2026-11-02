@@ -46,6 +46,9 @@ const refreshDashboard = document.querySelector("#refreshDashboard");
 const byutvPin = "2459";
 let enteredPin = "";
 let previousFocus = null;
+let inactivityTimeout = null;
+const autoReturnPages = new Set(["graduate", "signage", "building"]);
+const inactivityDelay = 60_000;
 
 const buildingFloors = [
   { id: 1, label: "Floor 1", image: "assets/building-map-floor-1.png" },
@@ -276,6 +279,19 @@ function showPage(page) {
     button.setAttribute("aria-current", active ? "page" : "false");
   });
   dashboard.scrollTo({ top: 0, behavior: "smooth" });
+  resetInactivityTimer();
+}
+
+function resetInactivityTimer() {
+  window.clearTimeout(inactivityTimeout);
+  inactivityTimeout = null;
+  if (!autoReturnPages.has(state.page)) return;
+
+  inactivityTimeout = window.setTimeout(() => {
+    if (!autoReturnPages.has(state.page)) return;
+    if (!pinGateBackdrop.hidden) closePinGate();
+    showPage("faculty");
+  }, inactivityDelay);
 }
 
 function updatePinDisplay() {
@@ -406,6 +422,10 @@ refreshDashboard.addEventListener("click", () => {
   const refreshedUrl = new URL(window.location.href);
   refreshedUrl.searchParams.set("kioskRefresh", String(Date.now()));
   window.location.replace(refreshedUrl.toString());
+});
+
+["pointerdown", "pointermove", "touchstart", "keydown", "wheel"].forEach((eventName) => {
+  document.addEventListener(eventName, resetInactivityTimer, { passive: true });
 });
 
 floorList.addEventListener("click", (event) => {
